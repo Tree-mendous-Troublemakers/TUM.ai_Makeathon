@@ -1,28 +1,28 @@
-from libtiff import TIFF # an alternative 
-
-
-#im = Image.open('test.tif')
-#im.show()
-
-
-
-tif = TIFF.open('test.tif') # open tiff file in read mode
-# read an image in the current TIFF directory as a numpy array
-image = tif.read_image()
-
-# read all images in a TIFF file:
-for image in tif.iter_images(): 
-    print("Hi")
-    pass
-
-tif = TIFF.open('test.tif', mode='w')
-tif.write_image(image)
+from PIL import Image
+import os,glob
+from torchvision import transforms
 
 
 
-
-def get_data():
-    pass
+def get_data(dataset):
+    if dataset == 1: 
+        # the rainforest dataset 
+        pass
+        #TODO add the dataset path 
+    elif dataset == 2: 
+        # the other dataset 
+        #TODO add the dataset path 
+        pass 
+    elif dataset == 3: 
+        # the series dataset 
+        folder_path = '/Users/julia/Downloads/Series_data_Amazon'
+        for folder in glob.glob(os.path.join(folder_path, '*')):
+            for file in folder:
+                im = Image.open(file)
+                pil_to_tensor = transforms.ToTensor()(im).unsqueeze_(0)
+                #output = model(pil_to_tensor) 
+    else: 
+        raise ValueError # value is supposed to be between 1 and 3 
 
 def preprocess(data): 
     # resizing or normalization 
