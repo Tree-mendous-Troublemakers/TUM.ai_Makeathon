@@ -5,7 +5,6 @@ from torchvision import transforms
 
 
 def get_data(dataset): # add model here 
-    print("Hi")
     if dataset == 1: 
         # the rainforest dataset 
         pass
@@ -22,7 +21,8 @@ def get_data(dataset): # add model here
                 im = Image.open(file)
                 pil_to_tensor = transforms.ToTensor()(im).unsqueeze_(0)
                 #output = model(pil_to_tensor) 
-                print(pil_to_tensor.size())
+                #print(pil_to_tensor.size())
+                # all seems to be of size [1, 1, 5530, 5495]
     else: 
         raise ValueError # value is supposed to be between 1 and 3 
 

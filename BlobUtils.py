@@ -85,5 +85,4 @@ if __name__ == "__main__":
     # Example usage
 
     blob_handler = BlobHandler()
-    # blob_handler.download_blob_folder(target_path="data/bronze_layer/EuroSAT_MS")
     blob_handler.upload_folder_to_blob(source_path="data/bronze_layer")

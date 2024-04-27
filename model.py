@@ -14,8 +14,9 @@ class Model(nn.Module):
     # output: 1
     
 
-    def __init__(self, in_feat=3, hidden = , out_feat=1):
+    def __init__(self, in_feat=100000, out_feat = 1):
         super().__init__()
+        # self.layer0 = nn.Linear(in_feat, in_feat) # just a linear layer to specify number of inputs  
         self.layer1 = nn.Conv2d(in_channels=32, out_channels=64, kernel_size=3, padding=1, stride = 1)
         self.layer2 = nn.MaxPool2d(kernel_size=2, stride=2)
         self.layer3 = nn.Conv2d(in_channels=32, out_channels=64, kernel_size=3, padding=1, stride = 1)
@@ -24,10 +25,10 @@ class Model(nn.Module):
         self.layer6 = nn.MaxPool2d(kernel_size=2, stride=2)
         self.layer7 = nn.Flatten()
         self.layer8 = nn.Linear(60675328, 256)
-        self.layer9 = nn.Linear(256, 1)
+        self.layer9 = nn.Linear(256, out_feat)
 
 
-        self.apply(init_params) # does that work??
+        self.apply(init_params) # does that work?? do i have to call the function elsewhere? 
 
     def forward(self, x): # x is the data received and it describes what is done with it 
         #x = F.Relu6(self.fc1(x))
@@ -41,28 +42,16 @@ class Model(nn.Module):
         x = self.layer6(x)
         x = self.layer7(x)
         x = nn.functional.relu(self.layer8(x))
-        x = nn.functional.logsigmoid(self.layer9(x))
+        x = self.layer9(x)
 
         return x
     
     
-        
-
-    def weights_setting(self):
-
-        # do it randomly 
 
     def init_params(m):
         if type(m)==nn.Linear or type(m)==nn.Conv2d:
             m.weight.data=torch.randn(m.weight.size())*.01#Random weight initialisation
             m.bias.data=torch.zeros(m.bias.size())
-
-
-
-
-            
-        
-    
 
 
 model = Model()
@@ -78,9 +67,7 @@ for param_tensor in model.state_dict():
 
 
 # Input to the model
-x = torch.randn(1,3)
-x[0,0] = 2
-x[0,1] = 5.5
+x = torch.randn([1, 1, 5530, 5495]) # dimensions of the input 
 
 torch_out = model(x) # output of the model when given input x 
 
