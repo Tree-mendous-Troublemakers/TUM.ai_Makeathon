@@ -60,3 +60,8 @@ websockets==11.0.3
 yarl==1.9.4
 azure-storage-blob
 python-dotenv
+keras
+tensorflow
+scikit-learn
+seaborn
+tqdm
