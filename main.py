@@ -1,5 +1,5 @@
 #from preprocess_data.py import get_clear_data
-from model.py import *
+from model import *
 from BlobUtils import BlobHandler
 import random, os 
 from PIL import Image
@@ -10,7 +10,7 @@ import cv2
 
 
 # hyperparameters 
-number_epochs = 3
+number_epochs = 1
 batch_size = 16 
 
 
@@ -39,13 +39,18 @@ def get_ith_file(number, path):
     print("That's an error. ")
 
 # everything together 
-def __main__(): 
-    for epoch in range(number_epochs, model): 
-        
+def __main__(model, epochs = number_epochs): 
+    for epoch in range(number_epochs): 
+        loss = 0
         training_data = get_elements()
-        prediction = model(data) # forward pass (prediction seems to be a vector)
+        for element in training_data: 
+            label = element[0]
+            print(element[1].size())
+            pred = model(element[1])
+            loss = loss + (label-pred)
+        #prediction = model(training_data) # forward pass (prediction seems to be a vector)
 
-        loss = (prediction - labels).sum() # do we just take the difference 
+        loss = (prediction - labels).sum() # do we just take the difference, taking it in each step 
         loss.backward() # backward pass
 
         optim = torch.optim.SGD(model.parameters(), lr=1e-2, momentum=0.9)
@@ -57,14 +62,14 @@ def get_elements(batch_size = batch_size):
     training_data = []
     folder_path = 'data/bronze_layer'
     length = [get_len(folder) for folder in range(0,10) ]
-    print("Length: ", length)
+    #print("Length: ", length)
     for tuple in range(batch_size): 
         # len(glob.glob('*')) # alternativ 
         label = random.randint(0, 9) # which label is it? 
 
         if os.path.exists(os.path.join(folder_path, str(label))):
             folder_to_extract = os.path.join(folder_path, str(label))
-            print("Folder found:", folder_to_extract) 
+            #print("Folder found:", folder_to_extract) 
             example = random.randint(0, length[label])
             file = get_ith_file(example, folder_to_extract)
             try: 
@@ -83,10 +88,19 @@ def get_elements(batch_size = batch_size):
     return training_data
 
 
-data = get_elements()
-my_model = Model()
-__main__(5, my_model)
+
+my_model = MyModel()
+__main__(my_model)
 #print(data)
+
+PATH = 'my_model.pth' # oder Endung .pt 
+# torch.save(net.state_dict(), PATH)
+
+
+# Save
+#torch.save(my_model, PATH)
+
+
 
 
 
