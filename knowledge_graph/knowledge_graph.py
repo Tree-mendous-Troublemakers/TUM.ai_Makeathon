@@ -29,46 +29,14 @@ class KnowledgeGraph:
         self.graph.add_node(timestamp=timestamp, id=id, properties=properties)
 
     def add_image_as_node(self, issue_dict):       
-        if 'embedding_target' in issue_dict:
-
-            self.graph.add_node(
-                timestamp=issue_dict['created'],
-                id=issue_dict['key'],
-                properties={
-                "type": issue_dict['type'],
-                "summary": issue_dict['summary'],
-                "description": issue_dict['description'],
-                "parent": str(issue_dict['parent']),
-                "status": issue_dict['status'],
-                "priority": issue_dict['priority'],
-                "created": issue_dict['created'],
-                "updated": issue_dict['updated'],
-                "assignee": issue_dict['assignee'],
-                "reporter": issue_dict['reporter'],
-                "issuelinks": str(issue_dict['issuelinks']),
-                "embedding_target": issue_dict.get('embedding_target'), # for details on embedding_target see nlp_utils.py module.
-                "embedding": issue_dict.get('embedding')
-                } 
-            )
-
-        else: 
-            self.graph.add_node(
-                timestamp=issue_dict['created'],
-                id=issue_dict['key'],
-                properties={
-                "type": issue_dict['type'],
-                "summary": issue_dict['summary'],
-                "description": issue_dict['description'],
-                "parent": str(issue_dict['parent']),
-                "status": issue_dict['status'],
-                "priority": issue_dict['priority'],
-                "created": issue_dict['created'],
-                "updated": issue_dict['updated'],
-                "assignee": issue_dict['assignee'],
-                "reporter": issue_dict['reporter'],
-                "issuelinks": str(issue_dict['issuelinks'])
-                } 
-            ) 
+        
+        self.graph.add_node(
+            timestamp=issue_dict['created'],
+            id=issue_dict['key'],
+            properties={
+            "type": issue_dict['type'],
+            }
+        )
 
 
 
@@ -106,4 +74,3 @@ class KnowledgeGraph:
     
     def get_edges(self):
         return self.graph.edges
-
