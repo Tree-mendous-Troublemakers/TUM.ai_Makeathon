@@ -58,3 +58,5 @@ urllib3==2.2.1
 wcwidth==0.2.13
 websockets==11.0.3
 yarl==1.9.4
+azure-storage-blob
+python-dotenv
