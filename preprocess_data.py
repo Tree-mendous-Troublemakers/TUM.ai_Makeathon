@@ -17,7 +17,7 @@ def get_data(dataset):
         # the series dataset 
         folder_path = '/Users/julia/Downloads/Series_data_Amazon'
         for folder in glob.glob(os.path.join(folder_path, '*')):
-            for file in folder:
+            for file in glob.glob(os.path.join(os.path.join(folder_path, folder),'*.tif')):
                 im = Image.open(file)
                 pil_to_tensor = transforms.ToTensor()(im).unsqueeze_(0)
                 #output = model(pil_to_tensor) 
