@@ -85,4 +85,8 @@ if __name__ == "__main__":
     # Example usage
 
     blob_handler = BlobHandler()
-    blob_handler.upload_folder_to_blob(source_path="data/bronze_layer")
+    # Download the EuroSAT_MS folder from Azure Blob Storage container to local directory
+    #blob_handler.download_blob_folder(target_path="data/bronze_layer/EuroSAT_MS")
+    # Upload all bronze layer files to Azure Blob Storage container
+    #blob_handler.upload_folder_to_blob(source_path="data/bronze_layer/Sen4AMA")
+    #blob_handler.upload_folder_to_blob(source_path="data/silver_layer/Sen4AMA")
