@@ -35,6 +35,6 @@ This summary encapsulates the "GreenGuard" challenge, emphasizing its goals, app
 **Team: Tree-mendous Troublemakers**
 - Julia: juliawalczak@yahoo.de
 - David: david.von.nobbe@rwth-aachen.de
-- Ole: ole.banning@gmail.com
+- Ole: -
 - Jamison: Jamison.proctor@gmail.com
 `
